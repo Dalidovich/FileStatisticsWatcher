@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FileStatisticsWatcher.Controllers
 {
-    public class FilteringSettingsController : Controller 
+    public class FilteringFileSettingsController : Controller 
     {
         private readonly IFilteringService<FileSettings> _filteringService;
 
-        public FilteringSettingsController(IFilteringService<FileSettings> filteringService)
+        public FilteringFileSettingsController(IFilteringService<FileSettings> filteringService)
         {
             _filteringService = filteringService;
         }
