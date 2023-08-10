@@ -44,6 +44,7 @@ namespace FileStatisticsWatcher.DAL.Repositories
                 orderby g.Key, g.Sum(fs => fs.Size) descending
                 select new DirectorySettings()
                 {
+                    Name = g.Key.Substring(g.Key.LastIndexOf('\\') + 1),
                     Path = g.Key,
                     CountFiles = g.Count(),
                     FilesSize = g.Sum(fs => fs.Size),

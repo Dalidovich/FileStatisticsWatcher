@@ -11,18 +11,22 @@ namespace FileStatisticsWatcher.Services.BaseServices
     {
         private readonly IFileSettingsRepository _repository;
         private readonly IFileIOService _fileIOService;
-        private readonly IFilteringService<FileSettings> _filteringService;
+        private readonly IFilteringService<FileSettings> _filteringFileService;
+        private readonly IFilteringService<DirectorySettings> _filteringDirectoryService;
 
-        public FileSettingsService(IFileSettingsRepository repository, IFileIOService fileIOService, IFilteringService<FileSettings> filteringService)
+        public FileSettingsService(IFileSettingsRepository repository, IFileIOService fileIOService,
+            IFilteringService<FileSettings> filteringFileService, IFilteringService<DirectorySettings> filteringDirService)
         {
             _repository = repository;
             _fileIOService = fileIOService;
-            _filteringService = filteringService;
+            _filteringFileService = filteringFileService;
+            _filteringDirectoryService = filteringDirService;
         }
 
         public async Task<DirectorySettings[]> GetStatisticsForDirs()
         {
-            var list = await _repository.GetDirictories().AsNoTracking().ToArrayAsync();
+            var listQ = _repository.GetDirictories();
+            var list = await _filteringDirectoryService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
 
             return list;
         }
@@ -30,8 +34,7 @@ namespace FileStatisticsWatcher.Services.BaseServices
         public async Task<FileSettings[]> GetFileSettings()
         {
             var listQ = _repository.Get();
-
-            var list = await _filteringService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
+            var list = await _filteringFileService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
 
             return list;
         }

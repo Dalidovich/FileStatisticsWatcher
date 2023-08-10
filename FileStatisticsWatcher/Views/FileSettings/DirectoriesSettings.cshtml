@@ -27,6 +27,7 @@
 <table>
     <thead>
         <tr class="text-center">
+            <th>Name</th>
             <th>Path</th>
             <th>DirictorySize (byte)</th>
             <th>FilesSize in dir (byte)</th>
@@ -37,6 +38,7 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@item.Name</td>
                 <td>@item.Path</td>
                 <td>@item.DirictorySize</td>
                 <td>@item.FilesSize</td>
