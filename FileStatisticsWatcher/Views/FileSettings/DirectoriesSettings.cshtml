@@ -1,4 +1,5 @@
 ﻿@using FileStatisticsWatcher.Models.DTO;
+@using FileStatisticsWatcher.Services;
 @model DirectorySettings[]
 
 <p>
@@ -29,8 +30,8 @@
         <tr class="text-center">
             <th>Name</th>
             <th>Path</th>
-            <th>DirictorySize (byte)</th>
-            <th>FilesSize in dir (byte)</th>
+            <th>DirictorySize</th>
+            <th>FilesSize in dir</th>
             <th>CountFiles</th>
         </tr>
     </thead>
@@ -40,8 +41,8 @@
             <tr>
                 <td>@item.Name</td>
                 <td>@item.Path</td>
-                <td>@item.DirictorySize</td>
-                <td>@item.FilesSize</td>
+                <td>@item.DirictorySize.FormatByteSize()</td>
+                <td>@item.FilesSize.FormatByteSize()</td>
                 <td>@item.CountFiles</td>
             </tr>
         }

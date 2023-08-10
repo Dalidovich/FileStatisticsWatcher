@@ -1,4 +1,5 @@
 ﻿@using FileStatisticsWatcher.Models.Entities;
+@using FileStatisticsWatcher.Services;
 @model FileSettings[]
 <style>
     table {
@@ -26,7 +27,7 @@
             <th>Path</th>
             <th>Depth</th>
             <th>Extension</th>
-            <th>Size (byte)</th>
+            <th>Size</th>
             <th>Last Access Date (UTC)</th>
             <th>Last Write Date (UTC)</th>
             <th>Create Date (UTC)</th>
@@ -40,7 +41,7 @@
                 <td>@item.Path</td>
                 <td>@item.Depth</td>
                 <td>@item.Extension</td>
-                <td>@item.Size</td>
+                <td>@item.Size.FormatByteSize()</td>
                 <td>@item.LastAccessDateUTC</td>
                 <td>@item.LastWriteDateUTC</td>
                 <td>@item.CreateDateUTC</td>

@@ -247,7 +247,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
                 case "extension":
                     list =
                         from fs in list
-                        group fs by fs.Name into g
+                        group fs by fs.Extension into g
                         select new FileSettings()
                         {
                             Name = $"count={g.Count()}",
