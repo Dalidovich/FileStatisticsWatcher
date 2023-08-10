@@ -15,6 +15,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
         {
         }
 
+        public static readonly string[] groupAvailableParams = { "countfiles", "dirictorysize", "filessize" };
         public IQueryable<DirectorySettings> GroupingList(IQueryable<DirectorySettings> list)
         {
             switch (GroupField.ToLower())
@@ -70,6 +71,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
             return list;
         }
 
+        public static readonly string[] sortAvailableParams = { "path", "countfiles", "filessize", "dirictorysize" };
         public IQueryable<DirectorySettings> SortinList(IQueryable<DirectorySettings> list)
         {
             IOrderedQueryable<DirectorySettings> orderingList = list.OrderBy(p => 0);
@@ -111,6 +113,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
             return orderingList ?? list;
         }
 
+        public static readonly string[] whereAvailableParams = { "filessize", "countfiles", "path" };
         public IQueryable<DirectorySettings> WhereList(IQueryable<DirectorySettings> list)
         {
             var fitsList = list.Where(x => x.Path != null);

@@ -23,6 +23,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
             return list;
         }
 
+        public static readonly string[] whereAvailableParams = { "depth", "size", "path", "name", "create", "createdate", "writedate", "accessdate" };
         public IQueryable<FileSettings> WhereList(IQueryable<FileSettings> list)
         {
             var fitsList = list.Where(x => x.Id != null);
@@ -121,6 +122,8 @@ namespace FileStatisticsWatcher.Services.FilteringServices
             return fitsList;
         }
 
+
+        public static readonly string[] sortAvailableParams = { "depth", "size", "path", "name", "create", "createdate", "writedate", "accessdate" };
         public IQueryable<FileSettings> SortinList(IQueryable<FileSettings> list)
         {
             IOrderedQueryable<FileSettings> orderingList = list.OrderBy(p => 0);
@@ -180,6 +183,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
             return orderingList ?? list;
         }
 
+        public static readonly string[] groupAvailableParams = { "depth", "size", "path", "name", "extension"};
         public IQueryable<FileSettings> GroupingList(IQueryable<FileSettings> list)
         {
             switch (GroupField.ToLower())

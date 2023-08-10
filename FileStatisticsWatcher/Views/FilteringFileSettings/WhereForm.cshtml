@@ -1,11 +1,17 @@
 ﻿@using FileStatisticsWatcher.Models.DTO.FilteringDTO;
+@using FileStatisticsWatcher.Services.FilteringServices;
 @model WhereSettings
 <div>
     <p>Where</p>
     <form method="post" asp-action="UpdateWhereSettings" asp-controller="FilteringFileSettings">
         <div>
             <label>Field name:</label>
-            <input type="text" required asp-for="FieldName">
+            <select asp-for="FieldName" required>
+                @foreach (var item in FilteringFileService.whereAvailableParams)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
         </div>
         <div>
             <label>Not flag:</label>

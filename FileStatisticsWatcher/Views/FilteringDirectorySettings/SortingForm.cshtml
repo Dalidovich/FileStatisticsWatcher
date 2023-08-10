@@ -1,11 +1,17 @@
 ﻿@using FileStatisticsWatcher.Models.DTO.FilteringDTO;
+@using FileStatisticsWatcher.Services.FilteringServices;
 @model SortFieldsSettings
 <div>
     <p>Sort</p>
     <form method="post" asp-action="UpdateSortingSettings" asp-controller="FilteringDirectorySettings">
         <div>
             <label>Field name:</label>
-            <input type="text" required asp-for="FieldName">
+            <select asp-for="FieldName" required>
+                @foreach (var item in FilteringDirectoryService.sortAvailableParams)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
         </div>
         <div>
             <label>Desc sort(A->a):</label>

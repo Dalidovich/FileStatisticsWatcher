@@ -1,6 +1,6 @@
 ﻿using FileStatisticsWatcher.Models.DTO;
 using FileStatisticsWatcher.Models.DTO.FilteringDTO;
-using FileStatisticsWatcher.Services.BaseServices;
+using FileStatisticsWatcher.Services.FilteringServices;
 using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +17,6 @@ namespace FileStatisticsWatcher.Controllers
 
         public IActionResult UpdateSortingSettings(SortFieldsSettings sortFieldsSettings, bool add)
         {
-            if (!ObjectFieldManager.GetFields<DirectorySettings>().Contains(sortFieldsSettings.FieldName))
-            {
-
-                return RedirectToAction("FilteringForms");
-            }
             if (add)
             {
                 if (_filteringService.SortSettings.FindIndex(x => x.FieldName == sortFieldsSettings.FieldName) == -1)
@@ -39,11 +34,6 @@ namespace FileStatisticsWatcher.Controllers
 
         public IActionResult UpdateGroupSettings(string fieldName, bool add)
         {
-            if (!ObjectFieldManager.GetFields<DirectorySettings>().Contains(fieldName))
-            {
-
-                return RedirectToAction("FilteringForms");
-            }
             if (add)
             {
                 _filteringService.GroupField = fieldName;
@@ -58,11 +48,6 @@ namespace FileStatisticsWatcher.Controllers
 
         public IActionResult UpdateWhereSettings(WhereSettings whereSettings, bool add)
         {
-            if (!ObjectFieldManager.GetFields<DirectorySettings>().Contains(whereSettings.FieldName))
-            {
-
-                return RedirectToAction("FilteringForms");
-            }
             if (add)
             {
                 _filteringService.WhereSettings.Add(whereSettings);
