@@ -1,0 +1,15 @@
+﻿@using FileStatisticsWatcher.Models.DTO;
+@using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
+@inject IFilteringService<DirectorySettings> filS
+<table>
+    <thead>
+        <tr class="text-center">
+            <th>FieldName</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@filS.GroupField</td>
+        </tr>
+    </tbody>
+</table>

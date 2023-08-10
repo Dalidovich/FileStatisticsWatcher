@@ -1,0 +1,31 @@
+﻿@using FileStatisticsWatcher.Models.DTO.FilteringDTO;
+@model WhereSettings
+<div>
+    <p>Where</p>
+    <form method="post" asp-action="UpdateWhereSettings" asp-controller="FilteringDirectorySettings">
+        <div>
+            <label>Field name:</label>
+            <input type="text" required asp-for="FieldName">
+        </div>
+        <div>
+            <label>Not flag:</label>
+            <input type="checkbox" asp-for="NotFlag">
+        </div>
+        <div>
+            <label>Target value:</label>
+            <input type="text" asp-for="TargetValue">
+        </div>
+        <div>
+            <label>State:</label>
+            <select asp-for="State">
+                @foreach (var item in WhereEnumHelper.GetEnumsList())
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+
+        </div>
+        <button name="add" value="true" type="submit">Add</button>
+        <button name="add" value="false" type="submit">Remove</button>
+    </form>
+</div>

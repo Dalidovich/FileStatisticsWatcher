@@ -1,0 +1,12 @@
+﻿@model string
+<div>
+    <p>Group</p>
+    <form method="post" asp-action="UpdateGroupSettings" asp-controller="FilteringDirectorySettings">
+        <div>
+            <label>Field name:</label>
+            <input name="fieldName" type="text" required>
+        </div>
+        <button name="add" value="true" type="submit">Add</button>
+        <button name="add" value="false" type="submit">Remove</button>
+    </form>
+</div>
