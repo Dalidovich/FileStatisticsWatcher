@@ -1,0 +1,19 @@
+﻿@using FileStatisticsWatcher.Models.DTO;
+@model LoadSettings
+<div>
+    <p>Sort</p>
+    <form method="post" asp-action="LoadFiles" asp-controller="FileSettings">
+        <div>
+            <label>loadpath:</label>
+            <input type="text" asp-for="loadPath">
+        </div>
+        <div>
+            <label>list folders to be ignored (separated by commas -> ",")</label>
+            <br>
+            <textarea name="ignorePath" rows="4" cols="50" maxlength="200"></textarea>
+        </div>
+        <button name="add" value="true" type="submit">Load</button>
+    </form>
+</div>
+
+

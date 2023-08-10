@@ -1,0 +1,50 @@
+﻿<style>
+	table {
+		border-collapse: collapse;
+		width: 100%;
+		margin: 0px;
+	}
+
+	th, td {
+		padding: 8px;
+		border-bottom: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+		border-left: 1px solid #ddd;
+	}
+
+	th {
+		background-color: #f2f2f2;
+	}
+</style>
+
+<div style="display: flex; margin:auto">
+	<div style="display:inline-block; margin:auto">
+		@await Html.PartialAsync("SortingForm.cshtml")
+	</div>
+	<div style="display:inline-block; margin:auto">
+		@await Html.PartialAsync("GroupForm.cshtml")
+	</div>
+	<div style="display:inline-block; margin:auto">
+		@await Html.PartialAsync("WhereForm.cshtml")
+	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div style="display: flex; margin:auto">
+	<div style="display:inline-block; margin:auto; border: 1px black solid">
+		@await Html.PartialAsync("AllSortingFilters.cshtml")
+	</div>
+	<div style="display:inline-block; margin:auto; border: 1px black solid">
+		@await Html.PartialAsync("AllGroupingFilters.cshtml")
+	</div>
+	<div style="display:inline-block; margin:auto; border: 1px black solid">
+		@await Html.PartialAsync("AllWhereingFilters.cshtml")
+	</div>
+</div>
+<div>
+	<form method="post" asp-action="ResetFilters" asp-controller="FilteringSettings">
+        <button name="add" value="true" type="submit">Reset</button>
+    </form>
+</div>

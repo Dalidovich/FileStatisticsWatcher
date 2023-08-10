@@ -1,0 +1,15 @@
+﻿@using FileStatisticsWatcher.Models.Entities;
+@using FileStatisticsWatcher.Services;
+@inject IFilteringService<FileSettings> filS
+<table>
+    <thead>
+        <tr class="text-center">
+            <th>FieldName</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@filS.GroupField</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,8 @@
+﻿@using FileStatisticsWatcher.Models.Entities;
+@model FileSettings[]
+
+<p>
+	files count - @Model.Length
+</p>
+
+@await Html.PartialAsync("FilesSettings.cshtml",Model)

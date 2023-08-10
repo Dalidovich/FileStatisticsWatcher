@@ -1,0 +1,47 @@
+﻿@using FileStatisticsWatcher.Models.DTO;
+@model DirectorySettings[]
+
+<p>
+    Directory count - @Model.Length
+</p>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0px;
+    }
+
+    th, td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr class="text-center">
+            <th>Path</th>
+            <th>DirictorySize (byte)</th>
+            <th>FilesSize in dir (byte)</th>
+            <th>CountFiles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Path</td>
+                <td>@item.DirictorySize</td>
+                <td>@item.FilesSize</td>
+                <td>@item.CountFiles</td>
+            </tr>
+        }
+    </tbody>
+</table>

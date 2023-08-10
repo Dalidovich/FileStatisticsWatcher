@@ -1,0 +1,17 @@
+﻿@using FileStatisticsWatcher.Models.DTO.FilteringDTO;
+@model SortFieldsSettings
+<div>
+    <p>Sort</p>
+	<form method="post" asp-action="UpdateSortingSettings" asp-controller="FilteringSettings">
+        <div>
+            <label>Field name:</label>
+            <input type="text" required asp-for="FieldName">
+        </div>
+        <div>
+            <label>Desc sort(A->a):</label>
+            <input type="checkbox" asp-for="FieldDirection">
+        </div>
+        <button name="add" value="true" type="submit">Add</button>
+        <button name="add" value="false" type="submit">Remove</button>
+    </form>
+</div>

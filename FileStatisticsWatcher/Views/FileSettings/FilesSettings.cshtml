@@ -1,0 +1,50 @@
+﻿@using FileStatisticsWatcher.Models.Entities;
+@model FileSettings[]
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0px;
+    }
+
+    th, td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr class="text-center">
+            <th>Name</th>
+            <th>Path</th>
+            <th>Depth</th>
+            <th>Extension</th>
+            <th>Size (byte)</th>
+            <th>Last Access Date (UTC)</th>
+            <th>Last Write Date (UTC)</th>
+            <th>Create Date (UTC)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Path</td>
+                <td>@item.Depth</td>
+                <td>@item.Extension</td>
+                <td>@item.Size</td>
+                <td>@item.LastAccessDateUTC</td>
+                <td>@item.LastWriteDateUTC</td>
+                <td>@item.CreateDateUTC</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+﻿@using FileStatisticsWatcher.Models.Entities;
+@using FileStatisticsWatcher.Services;
+@inject IFilteringService<FileSettings> filS
+<table>
+    <thead>
+        <tr class="text-center">
+            <th>FieldName</th>
+            <th>Not Flag</th>
+            <th>State</th>
+            <th>Target value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < filS.WhereSettings.Count; i++)
+        {
+            <tr>
+                <td>@filS.WhereSettings[i].FieldName</td>
+                <td>@filS.WhereSettings[i].NotFlag</td>
+                <td>@filS.WhereSettings[i].State</td>
+                <td>@filS.WhereSettings[i].TargetValue</td>
+            </tr>
+        }
+    </tbody>
+</table>

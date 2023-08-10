@@ -1,0 +1,28 @@
+﻿@using FileStatisticsWatcher.Models.DTO.FilteringDTO;
+@using FileStatisticsWatcher.Models.Entities;
+@using FileStatisticsWatcher.Services;
+@inject IFilteringService<FileSettings> filS
+<table>
+    <thead>
+        <tr class="text-center">
+            <th>FieldName</th>
+            <th>ASC or DESC</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < filS.SortSettings.Count; i++)
+        {
+            <tr>
+                <td>@filS.SortSettings[i].FieldName</td>
+                @if(filS.SortSettings[i].FieldDirection == SortFieldsSettings.ASC)
+                {
+                    <td>ASC</td>
+                }
+                else
+                {
+                    <td>DESC</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
