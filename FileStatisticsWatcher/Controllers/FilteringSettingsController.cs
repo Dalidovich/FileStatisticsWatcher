@@ -1,7 +1,7 @@
 ﻿using FileStatisticsWatcher.Models.DTO.FilteringDTO;
 using FileStatisticsWatcher.Models.Entities;
-using FileStatisticsWatcher.Services;
-using FileStatisticsWatcher.Services.Filtering;
+using FileStatisticsWatcher.Services.BaseServices;
+using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FileStatisticsWatcher.Controllers

@@ -1,7 +1,7 @@
 ﻿using FileStatisticsWatcher.Models.DTO;
 using FileStatisticsWatcher.Models.Entities;
 
-namespace FileStatisticsWatcher.Services.Interfaces
+namespace FileStatisticsWatcher.Services.BaseServices.Interfaces
 {
     public interface IFileSettingsService
     {

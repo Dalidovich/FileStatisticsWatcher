@@ -2,9 +2,10 @@ using FileStatisticsWatcher.DAL;
 using FileStatisticsWatcher.DAL.Repositories;
 using FileStatisticsWatcher.DAL.Repositories.Interfaces;
 using FileStatisticsWatcher.Models.Entities;
-using FileStatisticsWatcher.Services;
-using FileStatisticsWatcher.Services.Filtering;
-using FileStatisticsWatcher.Services.Interfaces;
+using FileStatisticsWatcher.Services.BaseServices;
+using FileStatisticsWatcher.Services.BaseServices.Interfaces;
+using FileStatisticsWatcher.Services.FilteringServices;
+using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace FileStatisticsWatcher
@@ -16,7 +17,7 @@ namespace FileStatisticsWatcher
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddSingleton<IFilteringService<FileSettings> ,FilteringFileService >();
+            builder.Services.AddSingleton<IFilteringService<FileSettings> ,FilteringFileService>();
 
             builder.Services.AddScoped<IFileSettingsService,FileSettingsService>();
             builder.Services.AddScoped<IFileIOService, FileIOService>();

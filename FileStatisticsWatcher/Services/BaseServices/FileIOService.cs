@@ -1,9 +1,9 @@
 ﻿using FileStatisticsWatcher.DAL;
 using FileStatisticsWatcher.Models.DTO;
-using FileStatisticsWatcher.Services.Interfaces;
+using FileStatisticsWatcher.Services.BaseServices.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace FileStatisticsWatcher.Services
+namespace FileStatisticsWatcher.Services.BaseServices
 {
     public class FileIOService : IFileIOService
     {
@@ -32,7 +32,7 @@ namespace FileStatisticsWatcher.Services
                     {
                         var tf = d.GetFiles().Where(f => !loadSettings.IgnorePaths.Any(str => f.FullName.Contains(str))).ToArray();
 
-						files.AddRange(tf);
+                        files.AddRange(tf);
                         filesInDirs.AddRange(tf);
                     }
                     catch (Exception) { }

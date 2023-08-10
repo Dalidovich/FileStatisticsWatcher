@@ -1,6 +1,6 @@
 ﻿using FileStatisticsWatcher.Models;
 using FileStatisticsWatcher.Models.DTO;
-using FileStatisticsWatcher.Services.Interfaces;
+using FileStatisticsWatcher.Services.BaseServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

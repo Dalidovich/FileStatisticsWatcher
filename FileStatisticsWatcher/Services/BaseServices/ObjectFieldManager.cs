@@ -1,4 +1,4 @@
-﻿namespace FileStatisticsWatcher.Services
+﻿namespace FileStatisticsWatcher.Services.BaseServices
 {
     public static class ObjectFieldManager
     {

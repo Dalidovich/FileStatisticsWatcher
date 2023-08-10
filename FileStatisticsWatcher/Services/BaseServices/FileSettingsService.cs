@@ -1,11 +1,11 @@
 ﻿using FileStatisticsWatcher.DAL.Repositories.Interfaces;
 using FileStatisticsWatcher.Models.DTO;
 using FileStatisticsWatcher.Models.Entities;
-using FileStatisticsWatcher.Services.Filtering;
-using FileStatisticsWatcher.Services.Interfaces;
+using FileStatisticsWatcher.Services.BaseServices.Interfaces;
+using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace FileStatisticsWatcher.Services
+namespace FileStatisticsWatcher.Services.BaseServices
 {
     public class FileSettingsService : IFileSettingsService
     {
@@ -31,17 +31,17 @@ namespace FileStatisticsWatcher.Services
         {
             var listQ = _repository.Get();
 
-            var list= await _filteringService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
+            var list = await _filteringService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
 
             return list;
         }
 
         public async Task<bool> ReloadFiles(LoadSettings loadSettings)
         {
-			loadSettings.loadPath = loadSettings.loadPath ?? Directory.GetCurrentDirectory();
+            loadSettings.loadPath = loadSettings.loadPath ?? Directory.GetCurrentDirectory();
             await _fileIOService.resetDBAsync();
             var filesInfo = _fileIOService.GetFiles(loadSettings);
-            foreach (var file in filesInfo) 
+            foreach (var file in filesInfo)
             {
                 await _repository.AddAsync(new FileSettings()
                 {

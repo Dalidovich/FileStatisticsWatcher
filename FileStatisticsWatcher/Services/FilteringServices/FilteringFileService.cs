@@ -1,9 +1,10 @@
 ﻿using FileStatisticsWatcher.Models.DTO.FilteringDTO;
 using FileStatisticsWatcher.Models.Entities;
+using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace FileStatisticsWatcher.Services.Filtering
+namespace FileStatisticsWatcher.Services.FilteringServices
 {
     public class FilteringFileService : IFilteringService<FileSettings>
     {
