@@ -26,7 +26,11 @@ namespace FileStatisticsWatcher.Controllers
             }
             else
             {
-                _filteringService.SortSettings.RemoveAt(_filteringService.SortSettings.FindIndex(x => x.FieldName == sortFieldsSettings.FieldName));
+                var deleteIndex = _filteringService.SortSettings.FindIndex(x => x.FieldName == sortFieldsSettings.FieldName);
+                if (deleteIndex != -1)
+                {
+                    _filteringService.SortSettings.RemoveAt(deleteIndex);
+                }
             }
 
             return RedirectToAction("FilteringForms");
@@ -40,7 +44,7 @@ namespace FileStatisticsWatcher.Controllers
             }
             else
             {
-                _filteringService.GroupField = string.Empty;
+                _filteringService.GroupField = fieldName== _filteringService.GroupField ?string.Empty: _filteringService.GroupField;
             }
 
             return RedirectToAction("FilteringForms");
@@ -54,13 +58,17 @@ namespace FileStatisticsWatcher.Controllers
             }
             else
             {
-                _filteringService.WhereSettings.RemoveAt(_filteringService.WhereSettings.FindIndex(x => 
+                var deleteIndex = _filteringService.WhereSettings.FindIndex(x =>
                 {
                     return x.FieldName == whereSettings.FieldName &&
-                        x.NotFlag==whereSettings.NotFlag &&
+                        x.NotFlag == whereSettings.NotFlag &&
                         x.TargetValue == whereSettings.TargetValue &&
                         x.State == whereSettings.State;
-                }));
+                });
+                if (deleteIndex != -1)
+                {
+                    _filteringService.WhereSettings.RemoveAt(deleteIndex);
+                }
             }
 
             return RedirectToAction("FilteringForms");
