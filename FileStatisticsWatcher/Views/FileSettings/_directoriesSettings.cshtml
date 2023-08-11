@@ -1,0 +1,14 @@
+﻿@using FileStatisticsWatcher.Models.DTO;
+@using FileStatisticsWatcher.Services;
+@model DirectorySettings[]
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Path</td>
+        <td>@item.DirictorySize.FormatByteSize()</td>
+        <td>@item.FilesSize.FormatByteSize()</td>
+        <td>@item.CountFiles</td>
+    </tr>
+}

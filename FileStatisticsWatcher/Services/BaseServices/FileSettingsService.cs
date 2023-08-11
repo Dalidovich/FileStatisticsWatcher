@@ -23,17 +23,17 @@ namespace FileStatisticsWatcher.Services.BaseServices
             _filteringDirectoryService = filteringDirService;
         }
 
-        public async Task<DirectorySettings[]> GetStatisticsForDirs()
+        public async Task<DirectorySettings[]> GetStatisticsForDirs(int page)
         {
-            var listQ = _repository.GetDirictories();
+            var listQ = _repository.GetDirictories().Skip(page * StandartConst.CountOneLoad).Take(StandartConst.CountOneLoad); ;
             var list = await _filteringDirectoryService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
 
             return list;
         }
 
-        public async Task<FileSettings[]> GetFileSettings()
+        public async Task<FileSettings[]> GetFileSettings(int page)
         {
-            var listQ = _repository.Get();
+            var listQ = _repository.Get().Skip(page * StandartConst.CountOneLoad).Take(StandartConst.CountOneLoad);
             var list = await _filteringFileService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
 
             return list;

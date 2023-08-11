@@ -20,11 +20,11 @@ namespace FileStatisticsWatcher.Controllers
             return RedirectToAction("AllFiles");
         }
 
-        public async Task<IActionResult> AllFiles()
+        public async Task<IActionResult> AllFiles(int page = 0)
         {
-            var list = await _fileSettingsService.GetFileSettings();
+            var list = await _fileSettingsService.GetFileSettings(page);
 
-            return View("Index", list);
+            return page == 0 ? View("FilesSettings", list) : PartialView("_filesSettings", list);
         }
 
 		public IActionResult LoadFiles()
@@ -50,11 +50,11 @@ namespace FileStatisticsWatcher.Controllers
             return RedirectToAction("AllFiles");
         }
 
-        public async Task<IActionResult> StatisticsForDirs()
+        public async Task<IActionResult> StatisticsForDirs(int page = 0)
         {
-            var list = await _fileSettingsService.GetStatisticsForDirs();
+            var list = await _fileSettingsService.GetStatisticsForDirs(page);
 
-            return View("DirectoriesSettings", list);
+            return page == 0 ? View("DirectoriesSettings", list) : PartialView("_directoriesSettings", list);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

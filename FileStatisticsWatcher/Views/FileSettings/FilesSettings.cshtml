@@ -1,24 +1,14 @@
 ﻿@using FileStatisticsWatcher.Models.Entities;
 @using FileStatisticsWatcher.Services;
 @model FileSettings[]
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        margin: 0px;
-    }
-
-    th, td {
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-        border-left: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-</style>
+<div style="display: flex;">
+    <p style="display:inline-block; margin-right:10px">
+        files count - 
+    </p>
+    <p id="filesCount" style="display:inline-block">
+        @Model.Length
+    </p>
+</div>
 
 <table>
     <thead>
@@ -32,18 +22,44 @@
             <th>Create Date (UTC)</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Path</td>
-                <td>@item.Depth</td>
-                <td>@item.Extension</td>
-                <td>@item.Size.FormatByteSize()</td>
-                <td>@item.LastAccessDateUTC</td>
-                <td>@item.CreateDateUTC</td>
-            </tr>
-        }
+    <tbody id="files">        
+        @await Html.PartialAsync("_filesSettings.cshtml",Model)
     </tbody>
 </table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    var page = 0;
+    var _inCallback = false;
+    function testLoad() {
+    if (page > -1 && !_inCallback) {
+        _inCallback = true;
+        page++;
+        $.ajax({
+            type: 'GET',
+            url: '/FileSettings/AllFiles',
+            data: { "page": page },
+            success: function (data, textstatus)
+            {
+                if (data != '') {
+                    $("#files").append(data);
+                    $("#filesCount").html(Number($("#filesCount").html())+(data.match(/<td>/g) || []).length/7);
+                }
+                else {
+                    page = -1;
+                }
+                _inCallback = false;
+            }
+        });
+    }
+}
+function setFileScrollEvent() {
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            console.log("scroll");
+                testLoad();
+        }
+    });
+}
+setFileScrollEvent();
+</script>

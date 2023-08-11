@@ -1,29 +1,14 @@
 ﻿@using FileStatisticsWatcher.Models.DTO;
 @using FileStatisticsWatcher.Services;
 @model DirectorySettings[]
-
-<p>
-    Directory count - @Model.Length
-</p>
-
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        margin: 0px;
-    }
-
-    th, td {
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-        border-left: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-</style>
+<div style="display: flex;">
+    <p style="display:inline-block; margin-right:10px">
+        Directory count -
+    </p>
+    <p id="directoriesCount" style="display:inline-block">
+        @Model.Length
+    </p>
+</div>
 
 <table>
     <thead>
@@ -35,16 +20,44 @@
             <th>CountFiles</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Path</td>
-                <td>@item.DirictorySize.FormatByteSize()</td>
-                <td>@item.FilesSize.FormatByteSize()</td>
-                <td>@item.CountFiles</td>
-            </tr>
-        }
+    <tbody id="directories">
+        @await Html.PartialAsync("_directoriesSettings.cshtml",Model)
     </tbody>
 </table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    var page = 0;
+    var _inCallback = false;
+    function testLoad() {
+    if (page > -1 && !_inCallback) {
+        _inCallback = true;
+        page++;
+        $.ajax({
+            type: 'GET',
+            url: '/FileSettings/StatisticsForDirs',
+            data: { "page": page },
+            success: function (data, textstatus)
+            {
+                if (data != '') {
+                    $("#directories").append(data);
+                    $("#directoriesCount").html(Number($("#directoriesCount").html())+(data.match(/<td>/g) || []).length/5);
+                }
+                else {
+                    page = -1;
+                }
+                _inCallback = false;
+            }
+        });
+    }
+}
+function setFileScrollEvent() {
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            console.log("scroll");
+                testLoad();
+        }
+    });
+}
+setFileScrollEvent();
+</script>

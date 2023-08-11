@@ -6,7 +6,7 @@ namespace FileStatisticsWatcher.Services.BaseServices.Interfaces
     public interface IFileSettingsService
     {
         Task<bool> ReloadFiles(LoadSettings loadSettings);
-        Task<FileSettings[]> GetFileSettings();
-        Task<DirectorySettings[]> GetStatisticsForDirs();
+        Task<FileSettings[]> GetFileSettings(int page);
+        Task<DirectorySettings[]> GetStatisticsForDirs(int page);
     }
 }

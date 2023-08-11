@@ -1,0 +1,15 @@
+﻿@using FileStatisticsWatcher.Models.Entities;
+@using FileStatisticsWatcher.Services;
+@model FileSettings[]
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Path</td>
+        <td>@item.Depth</td>
+        <td>@item.Extension</td>
+        <td>@item.Size.FormatByteSize()</td>
+        <td>@item.LastAccessDateUTC</td>
+        <td>@item.CreateDateUTC</td>
+    </tr>
+}
