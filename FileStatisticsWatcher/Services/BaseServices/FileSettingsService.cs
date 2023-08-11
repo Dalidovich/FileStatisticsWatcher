@@ -55,7 +55,6 @@ namespace FileStatisticsWatcher.Services.BaseServices
                     Depth = file.FullName.Count(x => x == '\\') - 1,
                     CreateDateUTC = file.CreationTimeUtc,
                     LastAccessDateUTC = file.Directory.LastAccessTimeUtc,
-                    LastWriteDateUTC = file.Directory.LastAccessTimeUtc,
                 });
             }
 

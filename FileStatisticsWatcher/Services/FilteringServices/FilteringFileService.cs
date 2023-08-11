@@ -23,7 +23,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
             return list;
         }
 
-        public static readonly string[] whereAvailableParams = { "depth", "size", "path", "name", "create", "createdate", "writedate", "accessdate" };
+        public static readonly string[] whereAvailableParams = { "depth", "size", "path", "name", "createdate", "accessdate" };
         public IQueryable<FileSettings> WhereList(IQueryable<FileSettings> list)
         {
             var fitsList = list.Where(x => x.Id != null);
@@ -100,13 +100,6 @@ namespace FileStatisticsWatcher.Services.FilteringServices
                             fitsList = fitsList.Where(filter);
                         }
                         break;
-                    case "writedate":
-                        if (DateTime.TryParse(item.TargetValue, out var wd))
-                        {
-                            var filter = item.CreateFilter<FileSettings, DateTime>(o => o.LastWriteDateUTC, wd, item.State);
-                            fitsList = fitsList.Where(filter);
-                        }
-                        break;
                     case "accessdate":
                         if (DateTime.TryParse(item.TargetValue, out var ad))
                         {
@@ -123,7 +116,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
         }
 
 
-        public static readonly string[] sortAvailableParams = { "depth", "size", "path", "name", "create", "createdate", "writedate", "accessdate" };
+        public static readonly string[] sortAvailableParams = { "depth", "size", "path", "name", "createdate", "accessdate" };
         public IQueryable<FileSettings> SortinList(IQueryable<FileSettings> list)
         {
             IOrderedQueryable<FileSettings> orderingList = list.OrderBy(p => 0);
@@ -133,7 +126,6 @@ namespace FileStatisticsWatcher.Services.FilteringServices
             Expression<Func<FileSettings, long>> sizeExp = (y) => y.Size;
             Expression<Func<FileSettings, int>> depthExp = (y) => y.Depth;
             Expression<Func<FileSettings, DateTime>> createExp = (y) => y.CreateDateUTC;
-            Expression<Func<FileSettings, DateTime>> writeExp = (y) => y.LastWriteDateUTC;
             Expression<Func<FileSettings, DateTime>> accessExp = (y) => y.LastAccessDateUTC;
 
             foreach (var item in SortSettings)
@@ -164,11 +156,6 @@ namespace FileStatisticsWatcher.Services.FilteringServices
                         orderingList = item.FieldDirection == SortFieldsSettings.ASC ?
                             orderingList.ThenBy(createExp) :
                             orderingList.ThenByDescending(createExp);
-                        break;
-                    case "writedate":
-                        orderingList = item.FieldDirection == SortFieldsSettings.ASC ?
-                            orderingList.ThenBy(writeExp) :
-                            orderingList.ThenByDescending(writeExp);
                         break;
                     case "accessdate":
                         orderingList = item.FieldDirection == SortFieldsSettings.ASC ?

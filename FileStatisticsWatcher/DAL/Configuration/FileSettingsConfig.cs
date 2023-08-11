@@ -45,9 +45,6 @@ namespace FileStatisticsWatcher.DAL.Configuration
 
             builder.Property(e => e.LastAccessDateUTC)
                 .HasColumnName("last_access_date");
-
-            builder.Property(e => e.LastWriteDateUTC)
-                .HasColumnName("last_write_date");
         }
     }
 }

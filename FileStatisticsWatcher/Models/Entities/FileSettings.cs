@@ -9,7 +9,6 @@
         public int Depth { get; set; }
         public string Extension { get; set; }
         public DateTime CreateDateUTC { get; set; }
-        public DateTime LastWriteDateUTC { get; set; }
         public DateTime LastAccessDateUTC { get; set; }
     }
 }
