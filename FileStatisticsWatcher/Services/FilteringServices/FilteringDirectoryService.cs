@@ -1,6 +1,8 @@
-﻿using FileStatisticsWatcher.Models.DTO;
+﻿using FileStatisticsWatcher.Models;
+using FileStatisticsWatcher.Models.DTO;
 using FileStatisticsWatcher.Models.DTO.FilteringDTO;
 using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
+using Microsoft.Extensions.Options;
 using System.Linq.Expressions;
 
 namespace FileStatisticsWatcher.Services.FilteringServices
@@ -11,9 +13,13 @@ namespace FileStatisticsWatcher.Services.FilteringServices
         public List<WhereSettings> WhereSettings { get; set; } = new() { };
         public string GroupField { get; set; } = string.Empty;
 
-        public FilteringDirectoryService()
+        private readonly ConnectionDatabaseSettings _connectionDatabaseSettings;
+
+        public FilteringDirectoryService(IOptions<ConnectionDatabaseSettings> options)
         {
+            _connectionDatabaseSettings = options.Value;
         }
+
 
         public static readonly string[] groupAvailableParams = { "countfiles", "dirictorysize", "filessize" };
         public IQueryable<DirectorySettings> GroupingList(IQueryable<DirectorySettings> list)

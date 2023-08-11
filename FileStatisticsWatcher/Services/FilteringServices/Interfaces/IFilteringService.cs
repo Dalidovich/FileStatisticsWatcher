@@ -1,5 +1,4 @@
 ﻿using FileStatisticsWatcher.Models.DTO.FilteringDTO;
-using FileStatisticsWatcher.Models.Entities;
 
 namespace FileStatisticsWatcher.Services.FilteringServices.Interfaces
 {

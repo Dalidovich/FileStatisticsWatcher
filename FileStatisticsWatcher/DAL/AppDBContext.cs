@@ -8,11 +8,6 @@ namespace FileStatisticsWatcher.DAL
     {
         public DbSet<FileSettings> FileSettings { get; set; }
 
-        public void UpdateDatabase()
-        {
-            Database.EnsureDeleted();
-            Database.Migrate();
-        }
         public AppDBContext()
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

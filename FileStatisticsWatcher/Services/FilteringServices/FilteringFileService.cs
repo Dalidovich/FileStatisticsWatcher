@@ -1,19 +1,25 @@
-﻿using FileStatisticsWatcher.Models.DTO.FilteringDTO;
+﻿using FileStatisticsWatcher.Models;
+using FileStatisticsWatcher.Models.DTO.FilteringDTO;
 using FileStatisticsWatcher.Models.Entities;
 using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Linq.Expressions;
 
 namespace FileStatisticsWatcher.Services.FilteringServices
 {
     public class FilteringFileService : IFilteringService<FileSettings>
     {
-        public FilteringFileService()
-        { }
-
         public List<SortFieldsSettings> SortSettings { get; set; } = new() { };
         public List<WhereSettings> WhereSettings { get; set; } = new() { };
         public string GroupField { get; set; } = string.Empty;
+
+        private readonly ConnectionDatabaseSettings _connectionDatabaseSettings;
+
+        public FilteringFileService(IOptions<ConnectionDatabaseSettings> options)
+        {
+            _connectionDatabaseSettings = options.Value;
+        }
 
         public IQueryable<FileSettings> SetFilters(IQueryable<FileSettings> list)
         {
@@ -185,7 +191,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
                             Path = $"count={g.Count()}",
                             Depth = g.Key,
                             Size = g.Sum(x => x.Size),
-                            Extension = string.Join(",", g.Select(k => k.Extension).Select(x => $"{x}(" +
+                            Extension = _connectionDatabaseSettings.isInMemory?"": string.Join(",", g.Select(k => k.Extension).Select(x => $"{x}(" +
                                 $"{g.GroupBy(e => e.Extension).Select(y => new { exp = y.Key, count = y.Count() }).Single(o => o.exp == x).count})").ToHashSet()),
                         };
                     break;
@@ -199,7 +205,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
                             Path = g.Key,
                             Depth = g.Count(),
                             Size = g.Sum(x => x.Size),
-                            Extension = string.Join(",", g.Select(k => k.Extension).Select(x => $"{x}(" +
+                            Extension = _connectionDatabaseSettings.isInMemory ? "" : string.Join(",", g.Select(k => k.Extension).Select(x => $"{x}(" +
                                 $"{g.GroupBy(e => e.Extension).Select(y => new { exp = y.Key, count = y.Count() }).Single(o => o.exp == x).count})").ToHashSet()),
                         };
                     break;
@@ -213,7 +219,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
                             Path = $"count={g.Count()}",
                             Depth = g.Count(),
                             Size = g.Sum(x => x.Size),
-                            Extension = string.Join(",", g.Select(k => k.Extension).Select(x => $"{x}(" +
+                            Extension = _connectionDatabaseSettings.isInMemory ? "" : string.Join(",", g.Select(k => k.Extension).Select(x => $"{x}(" +
                                 $"{g.GroupBy(e => e.Extension).Select(y => new { exp = y.Key, count = y.Count() }).Single(o => o.exp == x).count})").ToHashSet()),
                         };
                     break;
@@ -227,7 +233,7 @@ namespace FileStatisticsWatcher.Services.FilteringServices
                             Path = $"count={g.Count()}",
                             Depth = g.Count(),
                             Size = g.Key,
-                            Extension = string.Join(",", g.Select(k => k.Extension).Select(x => $"{x}(" +
+                            Extension = _connectionDatabaseSettings.isInMemory ? "" : string.Join(",", g.Select(k => k.Extension).Select(x => $"{x}(" +
                                 $"{g.GroupBy(e => e.Extension).Select(y => new { exp = y.Key, count = y.Count() }).Single(o => o.exp == x).count})").ToHashSet()),
                         };
                     break;

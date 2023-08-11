@@ -61,8 +61,11 @@ namespace FileStatisticsWatcher.Services.BaseServices
 
         public async Task resetDBAsync()
         {
-            await context.Database.EnsureDeletedAsync();
-            await context.Database.MigrateAsync();
+            if (!context.Database.IsInMemory())
+            {
+                await context.Database.EnsureDeletedAsync();
+                await context.Database.MigrateAsync();
+            }
         }
     }
 }

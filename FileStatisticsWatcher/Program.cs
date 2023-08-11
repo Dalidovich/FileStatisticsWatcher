@@ -1,14 +1,3 @@
-using FileStatisticsWatcher.DAL;
-using FileStatisticsWatcher.DAL.Repositories;
-using FileStatisticsWatcher.DAL.Repositories.Interfaces;
-using FileStatisticsWatcher.Models.DTO;
-using FileStatisticsWatcher.Models.Entities;
-using FileStatisticsWatcher.Services.BaseServices;
-using FileStatisticsWatcher.Services.BaseServices.Interfaces;
-using FileStatisticsWatcher.Services.FilteringServices;
-using FileStatisticsWatcher.Services.FilteringServices.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
 namespace FileStatisticsWatcher
 {
     public class Program
@@ -18,15 +7,11 @@ namespace FileStatisticsWatcher
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddSingleton<IFilteringService<FileSettings> ,FilteringFileService>();
-            builder.Services.AddSingleton<IFilteringService<DirectorySettings> ,FilteringDirectoryService>();
-
-            builder.Services.AddScoped<IFileSettingsService,FileSettingsService>();
-            builder.Services.AddScoped<IFileIOService, FileIOService>();
-            builder.Services.AddScoped<IFileSettingsRepository, FileSettingsRepository>();
-
-            builder.Services.AddDbContext<AppDBContext>(opt => opt.UseNpgsql(
-                builder.Configuration.GetConnectionString("NpgConnectionString")));
+            builder.AddFilteringServices();
+            builder.AddBaseServices();
+            builder.AddRepositores();
+            builder.AddOptions();
+            builder.AddDatabase();
 
             var app = builder.Build();
 
