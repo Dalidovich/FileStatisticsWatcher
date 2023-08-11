@@ -2,6 +2,6 @@
 {
     public class StandartConst
 	{
-		public const int CountOneLoad = 30;
+		public const int CountOneLoad = 100;
 	}
 }
