@@ -12,6 +12,7 @@ namespace FileStatisticsWatcher
             builder.AddRepositores();
             builder.AddOptions();
             builder.AddDatabase();
+            builder.AddHostedServices();
 
             var app = builder.Build();
 

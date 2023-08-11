@@ -1,4 +1,5 @@
-﻿using FileStatisticsWatcher.DAL;
+﻿using FileStatisticsWatcher.BackgroundHostedService;
+using FileStatisticsWatcher.DAL;
 using FileStatisticsWatcher.DAL.Repositories;
 using FileStatisticsWatcher.DAL.Repositories.Interfaces;
 using FileStatisticsWatcher.Models;
@@ -52,6 +53,11 @@ namespace FileStatisticsWatcher
                 webApplicationBuilder.Services.AddDbContext<AppDBContext>(opt => opt.UseNpgsql(
                     webApplicationBuilder.Configuration.GetSection("ConnectionDatabaseSettings").GetSection("ConnectionString").Value));
             }
+        }
+
+        public static void AddHostedServices(this WebApplicationBuilder webApplicationBuilder)
+        {
+            webApplicationBuilder.Services.AddHostedService<CheckDBHostedService>();
         }
     }
 }
