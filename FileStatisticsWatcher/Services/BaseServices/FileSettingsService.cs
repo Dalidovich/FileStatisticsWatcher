@@ -25,16 +25,18 @@ namespace FileStatisticsWatcher.Services.BaseServices
 
         public async Task<DirectorySettings[]> GetStatisticsForDirs(int page)
         {
-            var listQ = _repository.GetDirictories().Skip(page * StandartConst.CountOneLoad).Take(StandartConst.CountOneLoad); ;
-            var list = await _filteringDirectoryService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
+            var listQ = _repository.GetDirictories();
+            var list = await _filteringDirectoryService.SetFilters(listQ).AsNoTracking()
+                .Skip(page * StandartConst.CountOneLoad).Take(StandartConst.CountOneLoad).ToArrayAsync();
 
             return list;
         }
 
         public async Task<FileSettings[]> GetFileSettings(int page)
         {
-            var listQ = _repository.Get().Skip(page * StandartConst.CountOneLoad).Take(StandartConst.CountOneLoad);
-            var list = await _filteringFileService.SetFilters(listQ).AsNoTracking().ToArrayAsync();
+            var listQ = _repository.Get();
+            var list = await _filteringFileService.SetFilters(listQ).AsNoTracking()
+                .Skip(page * StandartConst.CountOneLoad).Take(StandartConst.CountOneLoad).ToArrayAsync();
 
             return list;
         }

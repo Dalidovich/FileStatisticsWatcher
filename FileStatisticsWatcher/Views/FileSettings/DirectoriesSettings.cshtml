@@ -25,38 +25,36 @@
     </tbody>
 </table>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
     var page = 0;
     var _inCallback = false;
-    function testLoad() {
-    if (page > -1 && !_inCallback) {
-        _inCallback = true;
-        page++;
-        $.ajax({
-            type: 'GET',
-            url: '/FileSettings/StatisticsForDirs',
-            data: { "page": page },
-            success: function (data, textstatus)
-            {
-                if (data != '') {
-                    $("#directories").append(data);
-                    $("#directoriesCount").html(Number($("#directoriesCount").html())+(data.match(/<td>/g) || []).length/5);
-                }
-                else {
-                    page = -1;
-                }
-                _inCallback = false;
+    const filesElement = document.getElementById("directories");
+    const directoriesCountElement = document.getElementById("directoriesCount");
+
+    function directoryLoad() {
+        if (page > -1 && !_inCallback) {
+            _inCallback = true;
+            page++;
+            let response = fetch('http://localhost:5048/FileSettings/StatisticsForDirs?page=' + page)
+                .then(response => response.text())
+                .then(data => {
+                    if (data != '') {
+                        filesElement.innerHTML += data;
+                        directoriesCountElement.innerHTML = Number(directoriesCountElement.innerHTML) + (data.match((/<td>/g) || []).length / 5);
+                    }
+                    else {
+                        page = -1;
+                    }
+                    _inCallback = false;
+                });
+        }
+    }
+    function setDirectoryScrollEvent() {
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset == document.documentElement.scrollHeight - window.innerHeight) {
+                directoryLoad();
             }
         });
     }
-}
-function setFileScrollEvent() {
-    $(window).scroll(function () {
-        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-            testLoad();
-        }
-    });
-}
-setFileScrollEvent();
+    setDirectoryScrollEvent();
 </script>
